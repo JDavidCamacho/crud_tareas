@@ -6,7 +6,7 @@ $customService = new CustomService();
 
 // Verificar si se recibe un ID de usuario para editar
 if (isset($_GET['id'])) {
-    $customId = $_GET['id'];
+    $customId = $_GET['id']; // Asegúrate de validar y sanitizar el ID
     $custom = $customService->GetCustomByNombre($customId);
 
     if (!$custom) {
@@ -22,11 +22,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos del formulario
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
-    $email = $_POST['email'];
+    $correo = $_POST['correo'];
     $direccion = $_POST['direccion'];
     $telefono = $_POST['telefono'];
+    $estado = 1; // Asignar estado activo por defecto
 
-    $custom = new Custom($nombre, $apellido, $email, $direccion, $telefono, $customId);
+    $custom = new Custom($nombre, $apellido, $correo, $direccion, $telefono, $estado, $customId);
 
     // Actualizar usuario existente
     $success = $customService->UpdateCustom($custom);
@@ -66,8 +67,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     </div>
 
                     <div class="form-group">
-                        <label for="email">Correo Electronico</label>
-                        <input type="email" class="form-control" id="email" name="email" value="<?php echo htmlspecialchars($custom->getEmail()); ?>" required>
+                        <label for="correo">Correo Electronico</label>
+                        <input type="correo" class="form-control" id="correo" name="correo" value="<?php echo htmlspecialchars($custom->getCorreo()); ?>" required>
                     </div>
 
                     <div class="form-group">
@@ -80,6 +81,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <label for="telefono">telefono</label>
                         <input type="telefono" class="form-control" id="telefono" name="telefono" value="<?php echo htmlspecialchars($custom->getTelefono()); ?>" required>
                     </div>
+
+                    
 
                     <button type="submit" class="btn btn-primary">Guardar Cambios</button>
                 </form>

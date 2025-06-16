@@ -9,18 +9,18 @@ if (isset($_GET['id'])) {
     $customId = intval($_GET['id']);
     
     try {
-        if ($customService->DeleteCustom($customId)) {
-            echo "Usuario eliminado exitosamente.";
+        if ($customService->DeleteCliente($customId)) {
+            echo "cliente eliminado exitosamente.";
             header("Location: index.php"); 
             exit();
         } else {
-            echo "Error al eliminar el usuario.";
+            echo "Error al eliminar el cliente.";
         }
     } catch (Exception $e) {
         echo "Error: " . $e->getMessage();
     }
 } else {
-    echo "ID de usuario no proporcionado.";
+    echo "ID de cliente no proporcionado.";
     exit();
 }
 ?>

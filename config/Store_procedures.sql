@@ -7,6 +7,7 @@ BEGIN
     INSERT INTO usuario (username, password)
     VALUES (p_username, SHA2(p_password, 256)); -- SHA2 con 256 bits para cifrar la contraseña
 END$$
+
 DELIMITER ;
 
 DELIMITER $$
@@ -55,3 +56,17 @@ BEGIN
     WHERE id = p_id;
 END$$
 DELIMITER ;
+
+
+CREATE DATABASE sistema_ventas;
+
+USE sistema_ventas;
+
+CREATE TABLE ventas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto VARCHAR(255),
+    cantidad INT,
+    precio DECIMAL(10, 2),
+    total DECIMAL(10, 2),
+    fecha TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

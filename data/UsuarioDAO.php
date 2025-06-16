@@ -32,7 +32,7 @@ class UserDAO
             //la variable users almacena en forma de array los distintos usuarios
             //los cuales son creados con la clase User creado en la carpeta domain
             //para crear con la clase User enviamos parametros necesarios para crear los objetos
-            $users[] = new User($row['username'], $row['password'], $row['id']);
+            $users[] = new User($row['nombre'],$row['apellido'],$row['usuario'], $row['correo'], $row['password'], $row['estado'], $row['id_usuario']);
         }
 
         return $users;
@@ -43,14 +43,14 @@ class UserDAO
     //Metodo para obtener los datos del usuario para su validacion
     public function getUserByUsername($username)
     {
-        $query = "CALL GetUserByUsername(:p_username)";
+        $query = "CALL GetUserByUsername(:p_usuario)";
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':p_username', $username);
+        $stmt->bindParam(':p_usuario', $username);
         $stmt->execute();
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if($result){
-            return new User($result['username'], $result['password'], $result['id']);
+            return new User($result['nombre'],$result['apellido'],$result['usuario'], $result['correo'], $result['password'],$result['estado'], $result['id_usuario']);
         }
         return null;
         //return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -60,12 +60,16 @@ class UserDAO
     // Metodo para crear el usuario
     public function createUser(User $user) //(user $user)=
     {
-        $query = "CALL CreateUser(:username, :password)";
+        $query = "CALL CreateUser(:nombre, :apellido, :usuario, :correo, :password, :estado)";
         $stmt = $this->conn->prepare($query);
         
         return $stmt->execute([
-            'username' => $user->getUsername(), //La variable user que contiene los datos de la clase User recuperamos username
-            'password' => $user->getPassword() //La varibale user que contiene los datos de la clase User recuperamos password
+            'nombre' => $user->getNombre(),
+            'apellido'=> $user->getApellido(),
+            'usuario' => $user->getUsuario(), //La variable user que contiene los datos de la clase User recuperamos username
+            'correo' => $user->getCorreo(),
+            'password' => $user->getPassword(), //La varibale user que contiene los datos de la clase User recuperamos password
+            'estado' => $user->getEstado()
         ]);
 
         /* return $stmt->execute([
@@ -84,7 +88,7 @@ class UserDAO
 
         $result = $stmt->fetch(PDO::FETCH_ASSOC);
         if($result){
-            return new User($result['username'], $result['password'], $result['id']);
+            return new User($result['nombre'],$result['apellido'],$result['usuario'], $result['correo'],$result['password'],$result['estado'], $result['id_usuario']);
         }
         return null;
 
@@ -92,23 +96,47 @@ class UserDAO
     }
 
     // Actualizar un usuario en la base de datos usando PDO
-    public function updateUser(User $user)
-    {
-        $query = "CALL UpdateUser(:id, :username, :password)";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $user->getId(), PDO::PARAM_INT);
-        $stmt->bindParam(':username', $user->getUsername(), PDO::PARAM_STR);
-        $stmt->bindParam(':password', $user->getPassword(), PDO::PARAM_STR);
+   public function updateUser(User $user)
+{
+    $query = "CALL UpdateUser(:id, :nombre, :apellido, :usuario, :correo, :password, :estado)";
+    $stmt = $this->conn->prepare($query);
+    $stmt->bindParam(':id', $user->getId(), PDO::PARAM_INT);
+    $stmt->bindParam(':nombre', $user->getNombre(), PDO::PARAM_STR);
+    $stmt->bindParam(':apellido', $user->getApellido(), PDO::PARAM_STR);
+    $stmt->bindParam(':usuario', $user->getUsuario(), PDO::PARAM_STR);
+    $stmt->bindParam(':correo', $user->getCorreo(), PDO::PARAM_STR);
+    $stmt->bindParam(':password', $user->getPassword(), PDO::PARAM_STR);
+    $stmt->bindParam(':estado', $user->getEstado(), PDO::PARAM_INT);
 
-        return $stmt->execute(); // devuelve el resultado de la ejecución
-    }
+    return $stmt->execute(); // Devuelve true si la ejecución fue exitosa
+}
 
     // Eliminar un usuario por su ID
     public function deleteUser($userId)
     {
-        $query = "CALL DeleteUser(:id)";
+        $query = "CALL DeleteUser(:id_usuario , :estado)";
+        $estado = 0;
         $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':id_usuario', $userId, PDO::PARAM_INT);
+        $stmt->bindParam(':estado', $estado, PDO::PARAM_INT);
         return $stmt->execute(); // devuelve el resultado de la ejecución
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

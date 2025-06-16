@@ -18,7 +18,10 @@ class CustomService
         return $this->customDAO->GetAllCustom();
     }
 
-
+    public function GetAllClientes()
+    {
+        return $this->customDAO->GetAllClientes();
+    }
      // Obtener un usuario por ID
      public function GetCustomByNombre($customId)
      {
@@ -41,15 +44,15 @@ class CustomService
         }*/
         // Cifrar la contraseña antes de guardarla
         //$hashedPassword = password_hash($password, PASSWORD_BCRYPT);
-        return $this->customDAO->CreateCustom($custom);
+        return $this->customDAO->UpdateCustom($custom);
     }
 
 
 
      // Eliminar un usuario
-    public function DeleteCustom($customId)
+    public function DeleteCliente($customId)
     {
-        return $this->customDAO->DeleteCustom($customId);
+        return $this->customDAO->DeleteCliente($customId);
     }
 
 }

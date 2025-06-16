@@ -1,0 +1,24 @@
+/* Archivo: personal.css */
+body {
+   
+    background-size: cover; /* Ajusta la imagen para que cubra todo el fondo */
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-attachment: fixed; /* Fija la imagen al fondo */
+    background-position: center; /* Centra la imagen */
+    min-height: 100vh; /* Asegura que el cuerpo tenga al menos la altura de la ventana */
+    margin: 0; /* Elimina márgenes */
+    padding: 0; /* Elimina relleno */
+}
+
+#wrapper {
+    display: flex; /* Asegura que el contenido principal y el aside estén alineados */
+    min-height: 100vh; /* Asegura que el contenedor principal tenga la altura completa */
+}
+
+#page-wrapper {
+    flex: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semitransparente para el contenido */
+    padding: 20px; /* Espaciado interno */
+    border-radius: 8px; /* Bordes redondeados */
+    margin: 20px; /* Espaciado externo */
+}

@@ -1,10 +1,11 @@
 <?php
     session_start();
+
 ?>
 <!-- Navigation -->
             <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
                 <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">LIBRERIA BRECOL</a>
+                    <a class="navbar-brand" href="../dashboard/dashboard.php">LIBRERIA BRECOL</a>
                 </div>
 
 
@@ -16,9 +17,7 @@
                     <span class="icon-bar"></span>
                 </button>
 
-                <ul class="nav navbar-nav navbar-left navbar-top-links">
-                    <li><a href="#"><i class="fa fa-home fa-fw"></i> Website</a></li>
-                </ul>
+                
 
                 <ul class="nav navbar-right navbar-top-links">
                     <li class="dropdown navbar-inverse">
@@ -80,15 +79,15 @@
                             <i class="fa fa-user fa-fw"></i> <?php echo $_SESSION['user'] ?><b class="caret"></b>
                         </a>
                         <ul class="dropdown-menu dropdown-user">
-                            <li>
+                           <!-- <li>
                                 <a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
                             </li>
                             <li>
                                 <a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a>
                             </li>
-                            <li class="divider"></li>
+                            <li class="divider"></li>-->
                             <li>
-                                <a href="login.html"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                                <a href="../login/login.php"><i class="fa fa-sign-out fa-fw"></i> salir</a>
                             </li>
                         </ul>
                     </li>

@@ -6,10 +6,14 @@ $userService = new UserService();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos del formulario
-    $username = $_POST['username'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $usuario = $_POST['usuario'];
+    $correo = $_POST['correo'];
     $password = $_POST['password'];
+    $estado = 1; // Estado activo por defecto
 
-    $user = new User($username, $password);
+    $user = new User($nombre,$apellido,$usuario, $correo, $password, $estado);
     // Crear nuevo usuario
     $success = $userService->createUser($user);
 
@@ -32,19 +36,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="container mt-5">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h1 class="page-header">Lista de Usuarios</h1>
+                                <h1 class="page-header">REGISTRAR USUARIO</h1>
                             </div>
                         </div>
                         <form action="create.php" method="post">
                             <div class="form-group">
-                                <label for="username">Nombre</label>
-                                <input type="text" class="form-control" id="username" name="username" required>
+                                <label for="nombre">Nombre</label>
+                                <input type="text" class="form-control" id="nombre" name="nombre" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="apellido">Apellido</label>
+                                <input type="text" class="form-control" id="apellido" name="apellido" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="usuario">Usuario</label>
+                                <input type="text" class="form-control" id="usuario" name="usuario" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="correo">Correo Electronico</label>
+                                <input type="text" class="form-control" id="correo" name="correo" required>
                             </div>
                             <div class="form-group">
                                 <label for="password">Contraseña</label>
                                 <input type="password" class="form-control" id="password" name="password" required>
                             </div>
-                            <button type="submit" class="btn btn-primary">Crear Usuario</button>
+                            
+                            <button type="submit" class="btn btn-primary">Guardar</button>
                         </form>
                         <a href="index.php" class="btn btn-secondary mt-3">Volver a la lista</a>
                     </div>

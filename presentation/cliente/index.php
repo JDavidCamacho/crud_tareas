@@ -9,6 +9,17 @@ $customService = new CustomService();
 // Obtener todos los usuarios
 $clientes = $customService->GetAllCustom();
 
+//filtrar clientes
+$searchTerm = isset($_POST['search']) ? $_POST['search'] : '';//el search sirve para mantener el valor de busqueda
+if ($searchTerm) {
+    $clientes = array_filter($clientes, function($cliente) use ($searchTerm) {//el array filter sirbe para filtrar los clientes
+        // busca la posicion de la primera aparicion de una subcadena dentro de una cadena sin importar si es mayuscula o minuscula
+        return stripos($cliente->getNombre(), $searchTerm) !== false || 
+               stripos($cliente->getApellido(), $searchTerm) !== false || 
+               stripos($cliente->getCorreo(), $searchTerm) !== false; // Filtrar por nombre, apellido o correo
+    });
+}
+
 ?>
 <?php include '../Shared/header.php'; ?>
 
@@ -22,19 +33,29 @@ $clientes = $customService->GetAllCustom();
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-12">
-                            <h1 class="page-header">Lista de Clientes</h1>
-                            <a href="create.php" title="Agregar nuevo usuario" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUserModal">Nuevo</a>
+                            <h1 class="page-header">ADMINISTRAR CLIENTE</h1>
+                            <a href="create.php" title="Agregar nuevo usuario" class="btn btn-success btn-sm" data-toggle="modal" data-target="#addUserModal">Registrar</a>
                         </div>
                     </div>
+
+                      <form method="POST" class="search-bar mb-3" style="padding-top: 10px;">
+                        <div class="input-group">
+                            <input type="text" class="form-control" name="search" placeholder="Buscar por nombre, apellido o correo" value="<?php echo htmlspecialchars($searchTerm); ?>">
+                            <button class="btn btn-outline-secondary" type="submit">Buscar</button>
+                        </div>
+                    </form>
+
+
                     <table class="table table-striped mt-3">
                         <thead>
                             <tr>
-                                <th>ID</th>
+                                <th>Id</th>
                                 <th>Nombre</th>
                                 <th>Apellido</th>
-                                <th>Email</th>
+                                <th>Correo Electronico</th>
                                 <th>Direccion</th>
                                 <th>Telefono</th>
+                                
                              
                             </tr>
                         </thead>
@@ -44,10 +65,10 @@ $clientes = $customService->GetAllCustom();
                                     <td><?php echo htmlspecialchars($cliente->getId()); ?></td>
                                     <td><?php echo htmlspecialchars($cliente->getNombre()); ?></td>
                                     <td><?php echo htmlspecialchars($cliente->getApellido()); ?></td>
-                                    <td><?php echo htmlspecialchars($cliente->getEmail()); ?></td>
+                                    <td><?php echo htmlspecialchars($cliente->getCorreo()); ?></td>
                                     <td><?php echo htmlspecialchars($cliente->getDireccion()); ?></td>
                                     <td><?php echo htmlspecialchars($cliente->getTelefono()); ?></td>
-                                    
+                                   
 
                                     <td>
                                         <a href="edit.php?id=<?php echo htmlspecialchars($cliente->getId()); ?>" 
@@ -55,12 +76,8 @@ $clientes = $customService->GetAllCustom();
                                            class="btn btn-primary btn-sm">
                                             <i class="fa fa-edit"></i> Editar
                                         </a>
-                                        <a href="details.php?id=<?php echo htmlspecialchars($cliente->getId()); ?>" 
-                                           title="Editar usuario" 
-                                           class="btn btn-info btn-sm">
-                                            <i class="fa fa-eye"></i> Ver
-                                        </a>
-                                        <a href="delete.php?id=<?php echo htmlspecialchars($cliente->getId()); ?>" title="Eliminar usuario" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este usuario?');">
+                                     
+                                        <a href="delete.php?id=<?php echo htmlspecialchars($cliente->getId()); ?>" title="Eliminar cliente" class="btn btn-danger btn-sm" onclick="return confirm('¿Estás seguro de que quieres eliminar este cliente?');">
                                             <i class="fa fa-trash"></i> Eliminar
                                         </a>
                                     </td>

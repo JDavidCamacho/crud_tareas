@@ -5,8 +5,8 @@ require_once '../../business/UsuarioService.php';
 $userService = new UserService();
 
 // Verifica si se paso el ID del usuario en la URL
-if (isset($_GET['id'])) {
-    $userId = intval($_GET['id']);
+if (isset($_GET['id_usuario'])) {
+    $userId = intval($_GET['id_usuario']);
     
     try {
         if ($userService->deleteUser($userId)) {

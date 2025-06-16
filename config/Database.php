@@ -4,7 +4,7 @@ class Database
 {
     private $host = 'localhost';
     private $port = '3312'; // Puerto personalizado
-    private $db_name = 'sistema_web';
+    private $db_name = 'libreria';
     private $username = 'root';
     private $password = '';
     private $conn;

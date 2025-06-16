@@ -12,13 +12,14 @@ class UserService
     }
 
     //En negocio hacemos la validaciones
-    public function authenticate($username, $password)
+    public function authenticate($usuario, $password)
     {
-        $user = $this->userDAO->getUserByUsername($username);
+        $user = $this->userDAO->getUserByUsername($usuario);
         //verifico si mi variable user esta trayendo un valor en el campo password
         if ($user) {
+            $hashedPassword = hash('sha256',$password);
             //Verifico si el password que ingreso el usuario es igual al que obtengo de la bd
-            if ($password === $user->getPassword()) {
+            if ($hashedPassword === $user->getPassword()) {
                 return true;
             }
         }
@@ -60,4 +61,7 @@ class UserService
     {
         return $this->userDAO->deleteUser($userId);
     }
+
+
+     
 }

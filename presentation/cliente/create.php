@@ -8,11 +8,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos del formulario
     $nombre = $_POST['nombre'];
     $apellido = $_POST['apellido'];
-    $email = $_POST['email'];
+    $correo = $_POST['correo'];
     $direccion = $_POST['direccion'];
     $telefono = $_POST['telefono'];
+    $estado = 1; // Estado activo por defecto
 
-    $custom = new Custom($nombre, $apellido, $email, $direccion, $telefono);
+    $custom = new Custom($nombre, $apellido, $correo, $direccion, $telefono, $estado);
     // Crear nuevo usuario
     $success = $customService->CreateCustom($custom);
 
@@ -35,7 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     <div class="container mt-5">
                         <div class="row">
                             <div class="col-lg-12">
-                                <h1 class="page-header">Lista de Clientes</h1>
+                                <h1 class="page-header">Registrar Cliente</h1>
                             </div>
                         </div>
                         <form action="create.php" method="post">
@@ -48,8 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <input type="apellido" class="form-control" id="apellido" name="apellido" required>
                             </div>
                             <div class="form-group">
-                                <label for="email">Correo Electronico</label>
-                                <input type="email" class="form-control" id="email" name="email" required>
+                                <label for="correo">Correo Electronico</label>
+                                <input type="correo" class="form-control" id="correo" name="correo" required>
                             </div>
                             <div class="form-group">
                                 <label for="direccion">Direccion</label>
@@ -59,6 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                                 <label for="telefono">Telefono</label>
                                 <input type="telefono" class="form-control" id="telefono" name="telefono" required>
                             </div>
+                            
                             <button type="submit" class="btn btn-primary">Registrar Cliente</button>
                         </form>
                         <a href="index.php" class="btn btn-secondary mt-3">Volver a la lista</a>

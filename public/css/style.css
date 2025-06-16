@@ -24,11 +24,11 @@ body {
 
 h1{
     text-align: center;
-    color: white;
+    color: black;
     margin: 10px;
 }
 h4{
-    color: white;
+    color: black;
 }
 
 input[type="text"], input[type="password"] {

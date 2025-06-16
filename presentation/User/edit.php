@@ -20,10 +20,14 @@ if (isset($_GET['id'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Obtener datos del formulario
-    $username = $_POST['username'];
+    $nombre = $_POST['nombre'];
+    $apellido = $_POST['apellido'];
+    $usuario = $_POST['usuario'];
+    $correo = $_POST['correo'];
     $password = $_POST['password'];
+    $estado = $_POST['estado'];
 
-    $user = new User($username, $password, $user->getId());
+    $user = new User($nombre, $apellido,$usuario,$correo,$password,$estado, $user->getId());
 
     // Actualizar usuario existente
     $success = $userService->updateUser($user);
@@ -47,22 +51,38 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12">
-                        <h1 class="page-header">Editar Usuario</h1>
+                        <h1 class="page-header">EDITAR USUARIO</h1>
                     </div>
                 </div>
 
                 <form action="edit.php?id=<?php echo $userId; ?>" method="post">
+                <div class="form-group">
+                        <label for="nombre">Nombre</label>
+                        <input type="text" class="form-control" id="nombre" name="nombre" value="<?php echo htmlspecialchars($user->getNombre()); ?>" required>
+                    </div>
                     <div class="form-group">
-                        <label for="username">Nombre</label>
-                        <input type="text" class="form-control" id="username" name="username" value="<?php echo htmlspecialchars($user->getUsername()); ?>" required>
+                        <label for="apellido">Apellido</label>
+                        <input type="text" class="form-control" id="apellido" name="apellido" value="<?php echo htmlspecialchars($user->getApellido()); ?>" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="usuario">Usuario</label>
+                        <input type="text" class="form-control" id="usuario" name="usuario" value="<?php echo htmlspecialchars($user->getUsuario()); ?>" required>
+                    </div>
+                <div class="form-group">
+                        <label for="correo">Correo ELectronico</label>
+                        <input type="text" class="form-control" id="correo" name="correo" value="<?php echo htmlspecialchars($user->getCorreo()); ?>" required>
                     </div>
 
                     <div class="form-group">
                         <label for="password">Contraseña</label>
                         <input type="password" class="form-control" id="password" name="password" value="<?php echo htmlspecialchars($user->getPassword()); ?>" required>
                     </div>
+                    <div class="form-group">
+                        <label for="estado">Estado</label>
+                        <input type="text" class="form-control" id="estado" name="estado" value="<?php echo htmlspecialchars($user->getEstado()); ?>" required>
+                    </div>
 
-                    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    <button type="submit" class="btn btn-primary">Guardar</button>
                 </form>
                 <a href="index.php" class="btn btn-secondary mt-3">Volver a la lista</a>
             </div>

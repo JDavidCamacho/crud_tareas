@@ -4,19 +4,21 @@ class Custom{
     private $id;
     private $nombre;
     private $apellido; 
-    private $email;
+    private $correo;
     private $direccion;
     private $telefono;
+    private $estado;
 
 
     //a trabajar con constructor que se debe cargar si o si
 
-    public function __construct($nombre, $apellido, $email, $direccion, $telefono, $id=null){
+    public function __construct($nombre, $apellido, $correo, $direccion, $telefono,$estado, $id=null){
         $this->nombre = $nombre;
         $this->apellido = $apellido;
-        $this->email = $email;
+        $this->correo = $correo;
         $this->direccion = $direccion;
         $this->telefono = $telefono;
+        $this->estado = $estado;
         $this->id = $id;
 
     }
@@ -33,8 +35,8 @@ class Custom{
         return $this->apellido;
     }
 
-    public function getEmail(){
-        return $this->email;
+    public function getCorreo(){
+        return $this->correo;
     }
 
     public function getDireccion(){
@@ -44,7 +46,9 @@ class Custom{
     public function getTelefono(){
         return $this->telefono;
     }
-
+    public function getEstado(){
+        return $this->estado;
+    }
     //metodos para seters
 
     public function setId($id){
@@ -59,8 +63,8 @@ class Custom{
         $this->apellido = $apellido;
     }
 
-    public function setEmail($email){
-        $this->email = $email;
+    public function setCorreo($correo){
+        $this->correo = $correo;
     }
 
     public function setDireccion($direccion){
@@ -68,6 +72,9 @@ class Custom{
     }
     public function setTelefono($telefono){
         $this->telefono = $telefono;
+    }
+    public function setEstado($estado){
+        $this->estado = $estado;
     }
 
 }
